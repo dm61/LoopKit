@@ -67,7 +67,7 @@ final class MockHUDProvider: NSObject, HUDProvider {
         if let reservoirUnitsRemaining = rawValue["reservoirUnitsRemaining"] as? Double {
             let reservoirLevel = (reservoirUnitsRemaining / pumpReservoirCapacity).clamped(to: 0...1)
             reservoirVolumeHUDView.level = reservoirLevel
-            reservoirVolumeHUDView.setReservoirVolume(volume: reservoirUnitsRemaining, at: Date())
+            reservoirVolumeHUDView.setReservoirVolume(volume: reservoirUnitsRemaining, at: simDate.currentDate())
         }
 
         let batteryPercentage = rawValue["pumpBatteryChargeRemaining"] as? Double
@@ -85,7 +85,7 @@ final class MockHUDProvider: NSObject, HUDProvider {
         let reservoirVolume = pumpManager.state.reservoirUnitsRemaining
         let reservoirLevel = (reservoirVolume / pumpManager.pumpReservoirCapacity).clamped(to: 0...1)
         reservoirView?.level = reservoirLevel
-        reservoirView?.setReservoirVolume(volume: reservoirVolume, at: Date())
+        reservoirView?.setReservoirVolume(volume: reservoirVolume, at: simDate.currentDate())
     }
 
     private func updateBatteryView() {

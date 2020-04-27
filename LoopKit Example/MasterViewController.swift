@@ -275,13 +275,13 @@ class MasterViewController: UITableViewController {
                         unitVolume -= (drand48() * 2.0)
 
                         group.enter()
-                        dataManager.doseStore.addReservoirValue(unitVolume, at: Date(timeIntervalSinceNow: index)) { (_, _, _, error) in
+                        dataManager.doseStore.addReservoirValue(unitVolume, at: simDate.currentDate(timeIntervalSinceNow: index)) { (_, _, _, error) in
                             group.leave()
                         }
                     }
 
                     group.enter()
-                    dataManager.glucoseStore.addGlucose(NewGlucoseSample(date: Date(), quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: 101), isDisplayOnly: false, syncIdentifier: UUID().uuidString), completion: { (result) in
+                    dataManager.glucoseStore.addGlucose(NewGlucoseSample(date: simDate.currentDate(), quantity: HKQuantity(unit: .milligramsPerDeciliter, doubleValue: 101), isDisplayOnly: false, syncIdentifier: UUID().uuidString), completion: { (result) in
                         group.leave()
                     })
 

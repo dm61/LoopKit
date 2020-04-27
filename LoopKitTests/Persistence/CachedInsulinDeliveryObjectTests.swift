@@ -95,8 +95,8 @@ class CachedInsulinDeliveryObjectTests: PersistenceControllerTestCase {
 extension CachedInsulinDeliveryObject {
     fileprivate func setDefaultValues() {
         uuid = UUID()
-        startDate = Date()
-        endDate = Date()
+        startDate = simDate.currentDate()
+        endDate = simDate.currentDate()
         reason = .basal
         hasLoopKitOrigin = true
         value = 3.5

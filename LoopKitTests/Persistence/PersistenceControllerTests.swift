@@ -21,7 +21,7 @@ class PersistenceControllerTests: PersistenceControllerTestCase {
                 glucose.syncVersion = 1
                 glucose.value = Double(value)
                 glucose.unitString = HKUnit.milligramsPerDeciliter.unitString
-                glucose.startDate = Date()
+                glucose.startDate = simDate.currentDate()
                 glucose.provenanceIdentifier = "PersistenceControllerTests"
                 glucose.isDisplayOnly = false
             }
@@ -48,7 +48,7 @@ class PersistenceControllerTests: PersistenceControllerTestCase {
                 glucose.syncVersion = 1
                 glucose.value = Double(value)
                 glucose.unitString = HKUnit.milligramsPerDeciliter.unitString
-                glucose.startDate = Date()
+                glucose.startDate = simDate.currentDate()
                 glucose.provenanceIdentifier = "PersistenceControllerTests"
                 glucose.isDisplayOnly = false
             }

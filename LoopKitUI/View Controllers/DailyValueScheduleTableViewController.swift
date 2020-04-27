@@ -148,7 +148,7 @@ open class DailyValueScheduleTableViewController: UITableViewController, DatePic
     private var calendar = Calendar.current
 
     var midnight: Date {
-        return calendar.startOfDay(for: Date())
+        return calendar.startOfDay(for: simDate.currentDate())
     }
 
     @objc func addScheduleItem(_ sender: Any?) {

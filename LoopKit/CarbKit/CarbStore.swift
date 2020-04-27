@@ -209,7 +209,7 @@ public final class CarbStore: HealthKitSampleStore {
         self.cacheLength = max(cacheLength, defaultAbsorptionTimes.slow * 2)
         self.carbAbsorptionModel = carbAbsorptionModel
 
-        super.init(healthStore: healthStore, type: carbType, observationStart: Date(timeIntervalSinceNow: -cacheLength), observationEnabled: observationEnabled)
+        super.init(healthStore: healthStore, type: carbType, observationStart: simDate.currentDate(timeIntervalSinceNow: -cacheLength), observationEnabled: observationEnabled)
 
         cacheStore.onReady { (error) in
             guard error == nil else { return }
@@ -523,7 +523,7 @@ extension NSManagedObjectContext {
 // MARK: - Cache management
 extension CarbStore {
     private var earliestCacheDate: Date {
-        return Date(timeIntervalSinceNow: -cacheLength)
+        return simDate.currentDate(timeIntervalSinceNow: -cacheLength)
     }
 
     @discardableResult

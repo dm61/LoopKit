@@ -28,6 +28,6 @@ class Reservoir: NSManagedObject {
     override func awakeFromInsert() {
         super.awakeFromInsert()
 
-        createdAt = Date()
+        createdAt = simDate.currentDate()
     }
 }

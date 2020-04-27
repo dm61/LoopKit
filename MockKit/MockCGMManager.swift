@@ -123,7 +123,7 @@ public final class MockCGMManager: TestingCGMManager {
     }
 
     public func backfillData(datingBack duration: TimeInterval) {
-        let now = Date()
+        let now = simDate.currentDate()
         self.logDeviceCommunication("backfillData(\(duration))")
         dataSource.backfillData(from: DateInterval(start: now.addingTimeInterval(-duration), end: now)) { result in
             self.logDeviceCommunication("backfillData received (\(result))", type: .receive)

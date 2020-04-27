@@ -72,7 +72,7 @@ public struct MockCGMDataSource {
     public init(
         model: Model,
         effects: Effects = .init(),
-        dataPointFrequency: TimeInterval = /* minutes */ 5 * 60
+        dataPointFrequency: TimeInterval = /* minutes 5 * 60 */ 5 * SimDate.simSampleTime
     ) {
         self.model = model
         self.effects = effects
@@ -81,7 +81,7 @@ public struct MockCGMDataSource {
     }
 
     func fetchNewData(_ completion: @escaping (CGMResult) -> Void) {
-        let now = Date()
+        let now = simDate.currentDate()
         // Give 5% wiggle room for producing data points
         let bufferedFrequency = dataPointFrequency - 0.05 * dataPointFrequency
         if now.timeIntervalSince(lastFetchedData.value) < bufferedFrequency {

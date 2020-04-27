@@ -54,7 +54,7 @@ public final class CarbEntryEditViewController: UITableViewController {
 
     fileprivate var quantity: HKQuantity?
 
-    fileprivate var date = Date()
+    fileprivate var date = simDate.currentDate()
 
     fileprivate var foodType: String?
 
@@ -157,7 +157,7 @@ public final class CarbEntryEditViewController: UITableViewController {
             cell.titleLabel.text = LocalizedString("Date", comment: "Title of the carb entry date picker cell")
             cell.datePicker.isEnabled = isSampleEditable
             cell.datePicker.datePickerMode = .dateAndTime
-            cell.datePicker.maximumDate = Date(timeIntervalSinceNow: maximumDateFutureInterval)
+            cell.datePicker.maximumDate = simDate.currentDate(timeIntervalSinceNow: maximumDateFutureInterval)
             cell.datePicker.minuteInterval = 1
             cell.date = date
             cell.delegate = self

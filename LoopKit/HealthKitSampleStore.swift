@@ -47,7 +47,7 @@ public class HealthKitSampleStore {
     internal var test_currentDate: Date?
 
     internal func currentDate(timeIntervalSinceNow: TimeInterval = 0) -> Date {
-        let date = test_currentDate ?? Date()
+        let date = test_currentDate ?? simDate.currentDate()
         return date.addingTimeInterval(timeIntervalSinceNow)
     }
 

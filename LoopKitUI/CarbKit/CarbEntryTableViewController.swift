@@ -89,7 +89,7 @@ public final class CarbEntryTableViewController: UITableViewController {
 
         let updateInterval = TimeInterval(minutes: 5)
         let timer = Timer(
-            fireAt: Date().dateCeiledToTimeInterval(updateInterval).addingTimeInterval(2),
+            fireAt: simDate.currentDate().dateCeiledToTimeInterval(updateInterval).addingTimeInterval(2),
             interval: updateInterval,
             target: self,
             selector: #selector(updateTimelyStats(_:)),
@@ -149,7 +149,7 @@ public final class CarbEntryTableViewController: UITableViewController {
 
             guard let carbStore = carbStore else { return }
 
-            let start = min(Calendar.current.startOfDay(for: Date()), Date(timeIntervalSinceNow: -2 * carbStore.defaultAbsorptionTimes.slow))
+            let start = min(Calendar.current.startOfDay(for: simDate.currentDate()), simDate.currentDate(timeIntervalSinceNow: -2 * carbStore.defaultAbsorptionTimes.slow))
             carbStore.getCarbEntries(start: start) { (result) in
                 DispatchQueue.main.async {
                     switch result {
@@ -173,7 +173,7 @@ public final class CarbEntryTableViewController: UITableViewController {
 
     private func updateCOB() {
         if case .display = state, let carbStore = carbStore {
-            carbStore.carbsOnBoard(at: Date()) { (result) in
+            carbStore.carbsOnBoard(at: simDate.currentDate()) { (result) in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let value):
@@ -190,7 +190,7 @@ public final class CarbEntryTableViewController: UITableViewController {
 
     private func updateTotal() {
         if case .display = state, let carbStore = carbStore {
-            carbStore.getTotalCarbs(since: Calendar.current.startOfDay(for: Date())) { (result) -> Void in
+            carbStore.getTotalCarbs(since: Calendar.current.startOfDay(for: simDate.currentDate())) { (result) -> Void in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let value):

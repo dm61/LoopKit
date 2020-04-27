@@ -52,7 +52,7 @@ public final class TemporaryScheduleOverrideHistory {
             delegate?.temporaryScheduleOverrideHistoryDidUpdate(self)
 
             if let lastTaintedEvent = taintedEventLog.last,
-                Date().timeIntervalSince(lastTaintedEvent.override.startDate) > .hours(48)
+                simDate.currentDate().timeIntervalSince(lastTaintedEvent.override.startDate) > .hours(48)
             {
                 taintedEventLog.removeAll()
             }
@@ -75,7 +75,7 @@ public final class TemporaryScheduleOverrideHistory {
         modificationCounter = 0
     }
 
-    public func recordOverride(_ override: TemporaryScheduleOverride?, at enableDate: Date = Date()) {
+    public func recordOverride(_ override: TemporaryScheduleOverride?, at enableDate: Date = Date()){
         guard override != lastUndeletedEvent?.override else {
             return
         }
@@ -143,21 +143,21 @@ public final class TemporaryScheduleOverrideHistory {
         }
     }
 
-    public func resolvingRecentBasalSchedule(_ base: BasalRateSchedule, relativeTo referenceDate: Date = Date()) -> BasalRateSchedule {
+    public func resolvingRecentBasalSchedule(_ base: BasalRateSchedule, relativeTo referenceDate: Date = simDate.currentDate()) -> BasalRateSchedule {
         filterRecentEvents(relativeTo: referenceDate)
         return overridesReflectingEnabledDuration(relativeTo: referenceDate).reduce(base) { base, override in
             base.applyingBasalRateMultiplier(from: override, relativeTo: referenceDate)
         }
     }
 
-    public func resolvingRecentInsulinSensitivitySchedule(_ base: InsulinSensitivitySchedule, relativeTo referenceDate: Date = Date()) -> InsulinSensitivitySchedule {
+    public func resolvingRecentInsulinSensitivitySchedule(_ base: InsulinSensitivitySchedule, relativeTo referenceDate: Date = simDate.currentDate()) -> InsulinSensitivitySchedule {
         filterRecentEvents(relativeTo: referenceDate)
         return overridesReflectingEnabledDuration(relativeTo: referenceDate).reduce(base) { base, override in
             base.applyingSensitivityMultiplier(from: override, relativeTo: referenceDate)
         }
     }
 
-    public func resolvingRecentCarbRatioSchedule(_ base: CarbRatioSchedule, relativeTo referenceDate: Date = Date()) -> CarbRatioSchedule {
+    public func resolvingRecentCarbRatioSchedule(_ base: CarbRatioSchedule, relativeTo referenceDate: Date = simDate.currentDate()) -> CarbRatioSchedule {
         filterRecentEvents(relativeTo: referenceDate)
         return overridesReflectingEnabledDuration(relativeTo: referenceDate).reduce(base) { base, override in
             base.applyingCarbRatioMultiplier(from: override, relativeTo: referenceDate)

@@ -25,7 +25,8 @@ public class PersistentDeviceLog {
     private let maxEntryAge: TimeInterval
     
     private var earliestLogEntryDate: Date {
-        return Date(timeIntervalSinceNow: -maxEntryAge)
+        // return Date(timeIntervalSinceNow: -maxEntryAge)
+        return simDate.currentDate(timeIntervalSinceNow: -maxEntryAge)
     }
     
     private let log = OSLog(category: "PersistentDeviceLog")
@@ -56,7 +57,8 @@ public class PersistentDeviceLog {
             entry.deviceIdentifier = deviceIdentifier
             entry.type = type
             entry.message = message
-            entry.timestamp = Date()
+            // entry.timestamp = Date()
+            entry.timestamp = simDate.currentDate()
             do {
                 try self.managedObjectContext.save()
                 self.log.default("Logged: %{public}@ (%{public}@) %{public}@", String(describing: type), deviceIdentifier ?? "", message)

@@ -97,6 +97,6 @@ class CachedCarbObjectTests: PersistenceControllerTestCase {
 extension CachedCarbObject {
     fileprivate func setDefaultValues() {
         createdByCurrentApp = true
-        startDate = Date()
+        startDate = simDate.currentDate()
     }
 }

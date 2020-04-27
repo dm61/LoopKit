@@ -88,7 +88,7 @@ class CachedInsulinDeliveryObject: NSManagedObject {
     override func awakeFromInsert() {
         super.awakeFromInsert()
 
-        createdAt = Date()
+        createdAt = SimDate.date
     }
 }
 

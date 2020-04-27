@@ -47,8 +47,8 @@ public final class MockPumpManager: TestingPumpManager {
         udiDeviceIdentifier: nil
     )
 
-    private static let deliveryUnitsPerMinute = 1.5
-    private static let pulsesPerUnit: Double = 20
+    private static let deliveryUnitsPerMinute: Double = 150 // 1.5
+    private static let pulsesPerUnit: Double = 20 // 20
     private static let pumpReservoirCapacity: Double = 200
 
     public var pumpReservoirCapacity: Double {
@@ -85,7 +85,7 @@ public final class MockPumpManager: TestingPumpManager {
     }
 
     public var lastReconciliation: Date? {
-        return Date()
+        return simDate.currentDate()
     }
 
     private func basalDeliveryState(for state: MockPumpManagerState) -> PumpManagerStatus.BasalDeliveryState {
@@ -98,7 +98,7 @@ public final class MockPumpManager: TestingPumpManager {
         if case .resumed(let date) = state.suspendState {
             return .active(date)
         } else {
-            return .active(Date())
+            return .active(simDate.currentDate())
         }
     }
 
@@ -159,7 +159,7 @@ public final class MockPumpManager: TestingPumpManager {
 
             delegate.notify { (delegate) in
                 if newValue.reservoirUnitsRemaining != oldValue.reservoirUnitsRemaining {
-                    delegate?.pumpManager(self, didReadReservoirValue: self.state.reservoirUnitsRemaining, at: Date()) { result in
+                    delegate?.pumpManager(self, didReadReservoirValue: self.state.reservoirUnitsRemaining, at: simDate.currentDate()) { result in
                         // nothing to do here
                     }
                 }
@@ -200,7 +200,7 @@ public final class MockPumpManager: TestingPumpManager {
             deliveryResumptionShouldError: false,
             maximumBolus: 25.0,
             maximumBasalRatePerHour: 5.0,
-            suspendState: .resumed(Date()),
+            suspendState: .resumed(simDate.currentDate()),
             pumpBatteryChargeRemaining: 1,
             unfinalizedBolus: nil,
             unfinalizedTempBasal: nil,
@@ -288,7 +288,7 @@ public final class MockPumpManager: TestingPumpManager {
             logDeviceCommunication("enactTempBasal failed: communicationFailure", type: .error)
             completion(.failure(PumpManagerError.communication(MockPumpManagerError.communicationFailure)))
         } else {
-            let now = Date()
+            let now = simDate.currentDate()
             if let temp = state.unfinalizedTempBasal, temp.finishTime.compare(now) == .orderedDescending {
                 state.unfinalizedTempBasal?.cancel(at: now)
             }
@@ -333,7 +333,7 @@ public final class MockPumpManager: TestingPumpManager {
                 completion(.failure(SetBolusError.certain(PumpManagerError.deviceState(MockPumpManagerError.pumpSuspended))))
                 return
             }
-            let bolus = UnfinalizedDose(bolusAmount: units, startTime: Date(), duration: .minutes(units / type(of: self).deliveryUnitsPerMinute))
+            let bolus = UnfinalizedDose(bolusAmount: units, startTime: simDate.currentDate(), duration: .minutes(units / type(of: self).deliveryUnitsPerMinute))
             let dose = DoseEntry(bolus)
             willRequest(dose)
             state.unfinalizedBolus = bolus
@@ -348,7 +348,7 @@ public final class MockPumpManager: TestingPumpManager {
 
         logDeviceCommunication("cancelBolus()")
 
-        state.unfinalizedBolus?.cancel(at: Date())
+        state.unfinalizedBolus?.cancel(at: simDate.currentDate())
 
         storeDoses { (_) in
             DispatchQueue.main.async {
@@ -369,11 +369,11 @@ public final class MockPumpManager: TestingPumpManager {
             completion(PumpManagerError.communication(MockPumpManagerError.communicationFailure))
             logDeviceCommunication("suspendDelivery failed: communicationFailure", type: .error)
         } else {
-            let now = Date()
+            let now = simDate.currentDate()
             state.unfinalizedTempBasal?.cancel(at: now)
             state.unfinalizedBolus?.cancel(at: now)
 
-            let suspendDate = Date()
+            let suspendDate = simDate.currentDate()
             let suspend = UnfinalizedDose(suspendStartTime: suspendDate)
             self.state.finalizedDoses.append(suspend)
             self.state.suspendState = .suspended(suspendDate)
@@ -390,7 +390,7 @@ public final class MockPumpManager: TestingPumpManager {
             completion(PumpManagerError.communication(MockPumpManagerError.communicationFailure))
             logDeviceCommunication("resumeDelivery failed: communicationFailure", type: .error)
         } else {
-            let resumeDate = Date()
+            let resumeDate = simDate.currentDate()
             let resume = UnfinalizedDose(resumeStartTime: resumeDate)
             self.state.finalizedDoses.append(resume)
             self.state.suspendState = .resumed(resumeDate)

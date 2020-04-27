@@ -24,7 +24,7 @@ public struct TemporaryScheduleOverridePreset: Hashable {
         self.duration = duration
     }
 
-    public func createOverride(enactTrigger: TemporaryScheduleOverride.EnactTrigger, beginningAt date: Date = Date()) -> TemporaryScheduleOverride {
+    public func createOverride(enactTrigger: TemporaryScheduleOverride.EnactTrigger, beginningAt date: Date = simDate.currentDate()) -> TemporaryScheduleOverride {
         return TemporaryScheduleOverride(
             context: .preset(self),
             settings: settings,

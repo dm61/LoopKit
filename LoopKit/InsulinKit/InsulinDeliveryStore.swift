@@ -63,7 +63,7 @@ public class InsulinDeliveryStore: HealthKitSampleStore {
         super.init(
             healthStore: healthStore,
             type: insulinType,
-            observationStart: (test_currentDate ?? Date()).addingTimeInterval(-cacheLength),
+            observationStart: (test_currentDate ?? simDate.currentDate()).addingTimeInterval(-cacheLength),
             observationEnabled: observationEnabled,
             test_currentDate: test_currentDate
         )

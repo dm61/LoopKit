@@ -80,7 +80,8 @@ public struct GlucoseRangeSchedule: DailySchedule, Equatable {
             return DateInterval(start: start, end: end)
         }
 
-        public func isActive(at date: Date = Date()) -> Bool {
+//        public func isActive(at date: Date = Date()) -> Bool {
+        public func isActive(at date: Date = simDate.currentDate()) -> Bool {
             return activeDates.contains(date) && !value.isZero
         }
     }
@@ -133,7 +134,7 @@ public struct GlucoseRangeSchedule: DailySchedule, Equatable {
     /// Returns the underlying values in `unit`
     /// Consider using quantity(at:) instead
     public func value(at time: Date) -> DoubleRange {
-        if let override = override, time >= override.start && Date() < override.end {
+        if let override = override, time >= override.start && simDate.currentDate() < override.end {
             return override.value
         }
 

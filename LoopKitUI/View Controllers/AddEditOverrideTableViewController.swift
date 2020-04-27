@@ -65,7 +65,7 @@ public final class AddEditOverrideTableViewController: UITableViewController {
                 name = nil
                 targetRange = nil
                 insulinNeedsScaleFactor = 1.0
-                startDate = Date()
+                startDate = simDate.currentDate()
                 duration = .finite(.defaultOverrideDuration)
             case .editOverride(let override):
                 if case .preset(let preset) = override.context {
@@ -100,7 +100,7 @@ public final class AddEditOverrideTableViewController: UITableViewController {
 
     private var insulinNeedsScaleFactor = 1.0 { didSet { updateSaveButtonEnabled() }}
 
-    private var startDate = Date()
+    private var startDate = simDate.currentDate()
 
     private var duration: TemporaryScheduleOverride.Duration = .finite(.defaultOverrideDuration)
     
@@ -264,7 +264,7 @@ public final class AddEditOverrideTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: DateAndDurationTableViewCell.className, for: indexPath) as! DateAndDurationTableViewCell
                 cell.titleLabel.text = NSLocalizedString("Start Time", comment: "The text for the override start time")
                 cell.datePicker.datePickerMode = .dateAndTime
-                cell.datePicker.minimumDate = min(startDate, Date())
+                cell.datePicker.minimumDate = min(startDate, simDate.currentDate())
                 cell.date = startDate
                 cell.delegate = self
                 return cell

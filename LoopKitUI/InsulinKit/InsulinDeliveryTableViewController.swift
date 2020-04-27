@@ -71,7 +71,7 @@ public final class InsulinDeliveryTableViewController: UITableViewController {
 
         let updateInterval = TimeInterval(minutes: 5)
         let timer = Timer(
-            fireAt: Date().dateCeiledToTimeInterval(updateInterval).addingTimeInterval(2),
+            fireAt: simDate.currentDate().dateCeiledToTimeInterval(updateInterval).addingTimeInterval(2),
             interval: updateInterval,
             target: self,
             selector: #selector(updateTimelyStats(_:)),
@@ -241,7 +241,7 @@ public final class InsulinDeliveryTableViewController: UITableViewController {
 
     private func updateIOB() {
         if case .display = state {
-            doseStore?.insulinOnBoard(at: Date()) { (result) -> Void in
+            doseStore?.insulinOnBoard(at: simDate.currentDate()) { (result) -> Void in
                 DispatchQueue.main.async {
                     switch result {
                     case .failure:
@@ -258,7 +258,7 @@ public final class InsulinDeliveryTableViewController: UITableViewController {
 
     private func updateTotal() {
         if case .display = state {
-            let midnight = Calendar.current.startOfDay(for: Date())
+            let midnight = Calendar.current.startOfDay(for: simDate.currentDate())
 
             doseStore?.getTotalUnitsDelivered(since: midnight) { (result) in
                 DispatchQueue.main.async {

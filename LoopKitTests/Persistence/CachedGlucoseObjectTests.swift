@@ -98,7 +98,7 @@ class CachedGlucoseObjectTests: PersistenceControllerTestCase {
 extension CachedGlucoseObject {
     fileprivate func setDefaultValues() {
         provenanceIdentifier = "CachedGlucoseObjectTests"
-        startDate = Date()
+        startDate = simDate.currentDate()
         uuid = UUID()
         syncIdentifier = uuid!.uuidString
         unitString = "mg/dL"

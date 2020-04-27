@@ -98,11 +98,11 @@ class SetConstrainedScheduleEntryTableViewCell: UITableViewCell {
             dateFormatter.timeZone = timeZone
             var calendar = Calendar.current
             calendar.timeZone = timeZone
-            startOfDay = calendar.startOfDay(for: Date())
+            startOfDay = calendar.startOfDay(for: simDate.currentDate())
         }
     }
 
-    private lazy var startOfDay = Calendar.current.startOfDay(for: Date())
+    private lazy var startOfDay = Calendar.current.startOfDay(for: simDate.currentDate())
 
     var startTime: TimeInterval = 0 {
         didSet {

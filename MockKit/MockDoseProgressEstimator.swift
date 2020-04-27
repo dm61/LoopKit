@@ -15,7 +15,7 @@ class MockDoseProgressEstimator: DoseProgressTimerEstimator {
     public let dose: DoseEntry
 
     override var progress: DoseProgress {
-        let elapsed = -dose.startDate.timeIntervalSinceNow
+        let elapsed = -simDate.timeIntervalSinceNow(dose.startDate)
         let duration = dose.endDate.timeIntervalSince(dose.startDate)
         let percentProgress = min(elapsed / duration, 1)
         let delivered = round(percentProgress * dose.programmedUnits * 20) / 20
@@ -28,7 +28,7 @@ class MockDoseProgressEstimator: DoseProgressTimerEstimator {
     }
 
     override func timerParameters() -> (delay: TimeInterval, repeating: TimeInterval) {
-        let timeSinceStart = -dose.startDate.timeIntervalSinceNow
+        let timeSinceStart = -simDate.timeIntervalSinceNow(dose.startDate)
         let timeBetweenPulses: TimeInterval
         switch dose.type {
         case .bolus:

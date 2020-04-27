@@ -42,7 +42,7 @@ public struct UnfinalizedDose: RawRepresentable, Equatable, CustomStringConverti
     }
 
     public var progress: Double {
-        let elapsed = -startTime.timeIntervalSinceNow
+        let elapsed = -simDate.timeIntervalSinceNow(startTime)
         return min(elapsed / duration, 1)
     }
 

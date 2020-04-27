@@ -15,7 +15,7 @@ public struct TestingScenario {
     var dateRelativeBolusEntries: [DateRelativeBolusEntry]
     var dateRelativeCarbEntries: [DateRelativeCarbEntry]
 
-    public func instantiate(relativeTo referenceDate: Date = Date()) -> TestingScenarioInstance {
+    public func instantiate(relativeTo referenceDate: Date = simDate.currentDate()) -> TestingScenarioInstance {
         let glucoseSamples = dateRelativeGlucoseSamples
             .map { $0.newGlucoseSample(relativeTo: referenceDate) }
             .filter { $0.date <= referenceDate }

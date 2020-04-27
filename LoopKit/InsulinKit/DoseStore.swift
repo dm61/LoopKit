@@ -99,7 +99,7 @@ public final class DoseStore {
             }
 
             if let effectDuration = insulinModel?.effectDuration {
-                insulinDeliveryStore.observationStart = Date(timeIntervalSinceNow: -effectDuration)
+                insulinDeliveryStore.observationStart = simDate.currentDate(timeIntervalSinceNow: -effectDuration)
             }
         }
     }
@@ -1248,7 +1248,7 @@ extension DoseStore {
     ///   - basalDosingEnd: The date at which continuing doses should be assumed to be cancelled
     ///   - completion: A closure called once the effects have been retrieved
     ///   - result: An array of effects, in chronological order
-    public func getGlucoseEffects(start: Date, end: Date? = nil, basalDosingEnd: Date? = Date(), completion: @escaping (_ result: DoseStoreResult<[GlucoseEffect]>) -> Void) {
+    public func getGlucoseEffects(start: Date, end: Date? = nil, basalDosingEnd: Date? = simDate.currentDate(), completion: @escaping (_ result: DoseStoreResult<[GlucoseEffect]>) -> Void) {
         guard let insulinModel = self.insulinModel,
               let insulinSensitivitySchedule = self.insulinSensitivityScheduleApplyingOverrideHistory
         else {

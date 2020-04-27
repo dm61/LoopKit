@@ -81,7 +81,7 @@ public struct TemporaryScheduleOverride: Hashable {
         }
     }
 
-    public func hasFinished(relativeTo date: Date = Date()) -> Bool {
+    public func hasFinished(relativeTo date: Date = simDate.currentDate()) -> Bool {
         return date > endDate
     }
 
@@ -95,7 +95,7 @@ public struct TemporaryScheduleOverride: Hashable {
         self.syncIdentifier = syncIdentifier
     }
     
-    public func isActive(at date: Date = Date()) -> Bool {
+    public func isActive(at date: Date = simDate.currentDate()) -> Bool {
         return activeInterval.contains(date)
     }
 }

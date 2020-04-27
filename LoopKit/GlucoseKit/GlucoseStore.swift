@@ -98,7 +98,7 @@ public final class GlucoseStore: HealthKitSampleStore {
         self.cacheLength = max(cacheLength, momentumDataInterval)
         
 
-        super.init(healthStore: healthStore, type: glucoseType, observationStart: Date(timeIntervalSinceNow: -cacheLength), observationEnabled: observationEnabled)
+        super.init(healthStore: healthStore, type: glucoseType, observationStart: simDate.currentDate(timeIntervalSinceNow: -cacheLength), observationEnabled: observationEnabled)
 
         cacheStore.onReady { (error) in
             cacheStore.fetchAnchor(key: GlucoseStore.queryAnchorMetadataKey) { (anchor) in
@@ -139,7 +139,7 @@ public final class GlucoseStore: HealthKitSampleStore {
             for sample in samples {
                 if sample.sourceRevision.source != .default() {
                     newestSampleStartDateAddedByExternalSource = max(sample.startDate, newestSampleStartDateAddedByExternalSource  ?? .distantPast)
-                    if let managedDataInterval = self.managedDataInterval, sample.startDate.timeIntervalSinceNow > -managedDataInterval {
+                    if let managedDataInterval = self.managedDataInterval, simDate.timeIntervalSinceNow(sample.startDate) > -managedDataInterval {
                         samplesAddedByExternalSourceWithinManagedDataInterval = true
                     }
                 }
@@ -267,9 +267,9 @@ extension GlucoseStore {
         purgeCachedGlucoseObjects(matching: cachePredicate)
 
         if let managedDataDate = managedDataDate, let managedDataInterval = managedDataInterval {
-            let end = min(Date(timeIntervalSinceNow: -managedDataInterval), managedDataDate)
+            let end = min(simDate.currentDate(timeIntervalSinceNow: -managedDataInterval), managedDataDate)
 
-            let predicate = HKQuery.predicateForSamples(withStart: Date(timeIntervalSinceNow: -maxPurgeInterval), end: end, options: [])
+            let predicate = HKQuery.predicateForSamples(withStart: simDate.currentDate(timeIntervalSinceNow: -maxPurgeInterval), end: end, options: [])
 
             healthStore.deleteObjects(of: glucoseType, predicate: predicate) { (success, count, error) -> Void in
                 // error is expected and ignored if protected data is unavailable
@@ -357,7 +357,7 @@ extension GlucoseStore {
         cacheStore.managedObjectContext.performAndWait {
             for sample in samples {
                 guard
-                    sample.startDate.timeIntervalSinceNow > -self.cacheLength,
+                    simDate.timeIntervalSinceNow(sample.startDate) > -self.cacheLength,
                     self.cacheStore.managedObjectContext.cachedGlucoseObjectsWithUUID(sample.sampleUUID, fetchLimit: 1).count == 0
                 else {
                     continue
@@ -475,7 +475,7 @@ extension GlucoseStore {
     }
 
     private var earliestCacheDate: Date {
-        return Date(timeIntervalSinceNow: -cacheLength)
+        return simDate.currentDate(timeIntervalSinceNow: -cacheLength)
     }
 
     @discardableResult
@@ -512,7 +512,7 @@ extension GlucoseStore {
         - effects: The calculated effect values, or an empty array if the glucose data isn't suitable for momentum calculation.
      */
     public func getRecentMomentumEffect(_ completion: @escaping (_ effects: [GlucoseEffect]) -> Void) {
-        getCachedGlucoseSamples(start: Date(timeIntervalSinceNow: -momentumDataInterval)) { (samples) in
+        getCachedGlucoseSamples(start: simDate.currentDate(timeIntervalSinceNow: -momentumDataInterval)) { (samples) in
             let effects = samples.linearMomentumEffect(
                 duration: self.momentumDataInterval,
                 delta: TimeInterval(minutes: 5)

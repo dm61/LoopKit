@@ -53,7 +53,7 @@ class BasalRateScheduleTests: XCTestCase {
         let schedule = BasalRateSchedule(dailyItems: items, timeZone: nil)!
         let calendar = Calendar.current
 
-        let midnight = calendar.startOfDay(for: Date())
+        let midnight = calendar.startOfDay(for: simDate.currentDate())
 
         var absoluteItems: [AbsoluteScheduleValue<Double>] = (0..<items.count).map {
             let endTime = ($0 + 1) < items.count ? items[$0 + 1].startTime : .hours(24)
@@ -150,7 +150,7 @@ class BasalRateScheduleTests: XCTestCase {
         let reSchedule = BasalRateSchedule(rawValue: schedule.rawValue)!
 
         let calendar = Calendar.current
-        let midnight = calendar.startOfDay(for: Date())
+        let midnight = calendar.startOfDay(for: simDate.currentDate())
 
         XCTAssertEqual(reSchedule.timeZone.secondsFromGMT(), schedule.timeZone.secondsFromGMT())
         XCTAssertEqual(reSchedule.value(at: midnight), schedule.value(at: midnight))

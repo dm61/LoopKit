@@ -42,7 +42,7 @@ final class SineCurveParametersTableViewController: UITableViewController {
     }
 
     var defaultPeriod: TimeInterval = .hours(6)
-    var defaultReferenceDate = Date()
+    var defaultReferenceDate = simDate.currentDate()
 
     private var baseGlucose: HKQuantity? {
         didSet {

@@ -440,6 +440,8 @@
 		9E784341236656770016C583 /* ice_35_min_partial_piecewiselinear_output.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E784340236656770016C583 /* ice_35_min_partial_piecewiselinear_output.json */; };
 		9E784343236659BD0016C583 /* ice_slow_absorption_piecewiselinear_output.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E784342236659BD0016C583 /* ice_slow_absorption_piecewiselinear_output.json */; };
 		9E78434523665B5A0016C583 /* ice_35_min_partial_piecewiselinear_adaptiverate_output.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E78434423665B5A0016C583 /* ice_35_min_partial_piecewiselinear_adaptiverate_output.json */; };
+		9E94E62B2453CFA300439ED0 /* SimDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94E62A2453CFA300439ED0 /* SimDate.swift */; };
+		9ED12E73245484B100561853 /* SimDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94E62A2453CFA300439ED0 /* SimDate.swift */; };
 		A9E6758222713F4700E25293 /* LoopNotificationCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1814B83225B9ED5008D2D8E /* LoopNotificationCategory.swift */; };
 		A9E6758322713F4700E25293 /* HKUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8FDEE1C7290350073BE78 /* HKUnit.swift */; };
 		A9E6758422713F4700E25293 /* NewCarbEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8FE5B1C7291D80073BE78 /* NewCarbEntry.swift */; };
@@ -1143,6 +1145,7 @@
 		9E784340236656770016C583 /* ice_35_min_partial_piecewiselinear_output.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ice_35_min_partial_piecewiselinear_output.json; sourceTree = "<group>"; };
 		9E784342236659BD0016C583 /* ice_slow_absorption_piecewiselinear_output.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ice_slow_absorption_piecewiselinear_output.json; sourceTree = "<group>"; };
 		9E78434423665B5A0016C583 /* ice_35_min_partial_piecewiselinear_adaptiverate_output.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ice_35_min_partial_piecewiselinear_adaptiverate_output.json; sourceTree = "<group>"; };
+		9E94E62A2453CFA300439ED0 /* SimDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimDate.swift; sourceTree = "<group>"; };
 		A9E675F022713F4700E25293 /* LoopKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LoopKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E675F2227140D800E25293 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		A9E675F4227140DD00E25293 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -1595,6 +1598,7 @@
 				437874B4202FDC8300A3D8B9 /* Persistence */,
 				C1814B83225B9ED5008D2D8E /* LoopNotificationCategory.swift */,
 				C16DA83E22E8D88F008624C2 /* LoopPlugin.swift */,
+				9E94E62A2453CFA300439ED0 /* SimDate.swift */,
 			);
 			path = LoopKit;
 			sourceTree = "<group>";
@@ -2622,6 +2626,7 @@
 				43CF0B3F2030FD0D002A66DE /* UploadState.swift in Sources */,
 				C16DA83F22E8D88F008624C2 /* LoopPlugin.swift in Sources */,
 				433BC7AD20538FCA000B1200 /* StoredGlucoseSample.swift in Sources */,
+				9E94E62B2453CFA300439ED0 /* SimDate.swift in Sources */,
 				43D8FDF91C7290350073BE78 /* GlucoseEffect.swift in Sources */,
 				43CACE0E2247F89100F90AF5 /* WeakSynchronizedSet.swift in Sources */,
 				43D8FDFE1C7290350073BE78 /* LoopMath.swift in Sources */,
@@ -2795,6 +2800,7 @@
 				A9E6759622713F4700E25293 /* NSTimeInterval.swift in Sources */,
 				A9E6759722713F4700E25293 /* DailyQuantitySchedule.swift in Sources */,
 				A9E6759822713F4700E25293 /* CarbRatioSchedule.swift in Sources */,
+				9ED12E73245484B100561853 /* SimDate.swift in Sources */,
 				A9E6759922713F4700E25293 /* GlucoseSampleValue.swift in Sources */,
 				A9E6759A22713F4700E25293 /* SensorDisplayable.swift in Sources */,
 				A9E6759B22713F4700E25293 /* PersistenceController.swift in Sources */,

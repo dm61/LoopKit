@@ -24,7 +24,8 @@ extension GlucoseRangeSchedule {
 extension /* BasalRateSchedule */ DailyValueSchedule where T == Double {
     func applyingBasalRateMultiplier(
         from override: TemporaryScheduleOverride,
-        relativeTo date: Date = Date()
+//        relativeTo date: Date = Date()
+        relativeTo date: Date = simDate.currentDate()
     ) -> BasalRateSchedule {
         return applyingOverride(override, relativeTo: date, multiplier: \.basalRateMultiplier)
     }
@@ -33,7 +34,8 @@ extension /* BasalRateSchedule */ DailyValueSchedule where T == Double {
 extension /* InsulinSensitivitySchedule */ DailyQuantitySchedule where T == Double {
     func applyingSensitivityMultiplier(
         from override: TemporaryScheduleOverride,
-        relativeTo date: Date = Date()
+//        relativeTo date: Date = Date()
+        relativeTo date: Date = simDate.currentDate()
     ) -> InsulinSensitivitySchedule {
         return DailyQuantitySchedule(
             unit: unit,
@@ -49,7 +51,8 @@ extension /* InsulinSensitivitySchedule */ DailyQuantitySchedule where T == Doub
 extension /* CarbRatioSchedule */ DailyQuantitySchedule where T == Double {
     func applyingCarbRatioMultiplier(
         from override: TemporaryScheduleOverride,
-        relativeTo date: Date = Date()
+//        relativeTo date: Date = Date()
+        relativeTo date: Date = simDate.currentDate()
     ) -> CarbRatioSchedule {
         return DailyQuantitySchedule(
             unit: unit,
