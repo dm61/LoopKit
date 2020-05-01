@@ -90,6 +90,14 @@ extension MockGlucoseProvider {
             completion(.newData([sample]))
         }
     }
+    
+    fileprivate static func mockHuman() -> MockGlucoseProvider {
+        return MockGlucoseProvider { date, completion in
+            let glucose = MockCGMState.mockHumanGlucose
+            let sample = glucoseSample(at: date, quantity: glucose)
+            completion(.newData([sample]))
+        }
+    }
 
     fileprivate static func sineCurve(parameters: MockCGMDataSource.Model.SineCurveParameters) -> MockGlucoseProvider {
         let (baseGlucose, amplitude, period, referenceDate) = parameters
@@ -208,6 +216,8 @@ private extension MockCGMDataSource.Model {
             return .sineCurve(parameters: parameters)
         case .noData:
             return .noData
+        case .mockHuman:
+            return .mockHuman()
         }
     }
 }

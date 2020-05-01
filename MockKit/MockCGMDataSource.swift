@@ -17,6 +17,7 @@ public struct MockCGMDataSource {
         case constant(_ glucose: HKQuantity)
         case sineCurve(parameters: SineCurveParameters)
         case noData
+        case mockHuman
     }
 
     public struct Effects {
@@ -129,6 +130,7 @@ extension MockCGMDataSource.Model: RawRepresentable {
         case constant = "constant"
         case sineCurve = "sineCurve"
         case noData = "noData"
+        case mockHuman = "mockHuman"
     }
 
     private static let unit = HKUnit.milligramsPerDeciliter
@@ -169,6 +171,8 @@ extension MockCGMDataSource.Model: RawRepresentable {
             self = .sineCurve(parameters: (baseGlucose: baseGlucose, amplitude: amplitude, period: period, referenceDate: referenceDate))
         case .noData:
             self = .noData
+        case .mockHuman:
+            self = .mockHuman
         }
     }
 
@@ -184,7 +188,7 @@ extension MockCGMDataSource.Model: RawRepresentable {
             rawValue["amplitude"] = amplitude.doubleValue(for: unit)
             rawValue["period"] = period
             rawValue["referenceDate"] = referenceDate.timeIntervalSince1970
-        case .noData:
+        case .noData, .mockHuman:
             break
         }
 
@@ -199,6 +203,8 @@ extension MockCGMDataSource.Model: RawRepresentable {
             return .sineCurve
         case .noData:
             return .noData
+        case .mockHuman:
+            return .mockHuman
         }
     }
 }

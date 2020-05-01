@@ -12,6 +12,9 @@ import LoopTestingKit
 
 
 public struct MockCGMState: SensorDisplayable {
+    
+    public static var mockHumanGlucose: HKQuantity = HKQuantity(unit: .milligramsPerDeciliter, doubleValue: 100)
+    
     public var isStateValid: Bool
 
     public var trendType: GlucoseTrend?
@@ -87,7 +90,7 @@ public final class MockCGMManager: TestingCGMManager {
             let dataSource = MockCGMDataSource(rawValue: dataSourceRawValue) {
             self.dataSource = dataSource
         } else {
-            self.dataSource = MockCGMDataSource(model: .noData)
+            self.dataSource = MockCGMDataSource(model: .mockHuman)
         }
 
         setupGlucoseUpdateTimer()
