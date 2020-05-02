@@ -14,11 +14,11 @@ public struct SimDate {
     
     public static var date: Date = Date()
     
-    /* 1 min in real time = 1 sec in simulation */
-    public static let simSampleTime: TimeInterval = 1.0
+    /* 1 min in real time = 0.1 sec in simulation */
+    public static let simSampleTime: TimeInterval = 0.1
     
     public func incrementSimDate() {
-        SimDate.date = SimDate.date.addingTimeInterval(60 * SimDate.simSampleTime)
+        SimDate.date = SimDate.date.addingTimeInterval(60)
     }
     
     public func currentDate(timeIntervalSinceNow: TimeInterval = 0) -> Date {
