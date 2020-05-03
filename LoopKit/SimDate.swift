@@ -12,7 +12,8 @@ public let simDate = SimDate()
 
 public struct SimDate {
     
-    public static var date: Date = Date()
+    static var date: Date = Date()
+    static var launchDate: Date = Date()
     
     /* 1 min in real time = 0.1 sec in simulation */
     public static let simSampleTime: TimeInterval = 0.1
@@ -30,5 +31,16 @@ public struct SimDate {
             let timeInterval = date.timeIntervalSince(SimDate.date)
             return (timeInterval)
     }
+    
+    public func resetSimDate() {
+        SimDate.date = Date()
+        SimDate.launchDate = SimDate.date
+    }
+    
+    public func elapsedTime() -> TimeInterval {
+        let elapsedTime = SimDate.date.timeIntervalSince(SimDate.launchDate)
+        return elapsedTime
+    }
+    
     
 }
